@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/94peter/mqtt"
@@ -27,6 +28,7 @@ type MutiEventServ interface {
 }
 
 type multiEventServ struct {
+	mu           sync.RWMutex
 	topicHandler map[string][]trans.Trans
 	mqttServ     mqtt.MqttServer
 }
@@ -60,24 +62,36 @@ func (m *multiEventServ) Emit(service, model string, msg MutiEventMsg) error {
 
 func (m *multiEventServ) Register(service, model, id string, handler trans.Trans) error {
 	key := fmt.Sprintf(topicPrefix, service, model, id)
-	if _, ok := m.topicHandler[key]; !ok {
-		m.topicHandler[key] = make([]trans.Trans, 0)
-	}
+	m.mu.Lock()
+	defer m.mu.Unlock()
 	m.topicHandler[key] = append(m.topicHandler[key], handler)
 	return nil
 }
 
 func (m *multiEventServ) UnRegister(service, model, id string, handler trans.Trans) {
 	key := fmt.Sprintf(topicPrefix, service, model, id)
-	for i, h := range m.topicHandler[key] {
-		if h == handler {
-			m.topicHandler[key] = append(m.topicHandler[key][:i], m.topicHandler[key][i+1:]...)
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	handlers := m.topicHandler[key]
+	remain := make([]trans.Trans, 0, len(handlers))
+	for _, h := range handlers {
+		if h != handler {
+			remain = append(remain, h)
 		}
 	}
+	if len(remain) == 0 {
+		delete(m.topicHandler, key)
+		return
+	}
+	m.topicHandler[key] = remain
 }
 
 func (m *multiEventServ) Send(topic string, msg []byte) error {
-	for _, handler := range m.topicHandler[topic] {
+	// copy handlers so the lock is not held while a handler is running
+	m.mu.RLock()
+	handlers := append([]trans.Trans(nil), m.topicHandler[topic]...)
+	m.mu.RUnlock()
+	for _, handler := range handlers {
 		if err := handler.Send(topic, msg); err != nil {
 			return err
 		}
