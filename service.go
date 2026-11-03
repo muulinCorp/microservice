@@ -7,9 +7,9 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/94peter/log"
-	"github.com/94peter/microservice/cfg"
-	"github.com/94peter/microservice/di"
+	"github.com/muulinCorp/log"
+	"github.com/muulinCorp/microservice/cfg"
+	"github.com/muulinCorp/microservice/di"
 )
 
 type MicroService[T cfg.ModelCfg, R di.ServiceDI] interface {

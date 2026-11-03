@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/94peter/log"
+	"github.com/muulinCorp/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
 	"google.golang.org/grpc/credentials"

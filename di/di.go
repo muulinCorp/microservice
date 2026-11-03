@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/94peter/log"
+	"github.com/muulinCorp/log"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 

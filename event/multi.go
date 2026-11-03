@@ -7,9 +7,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/94peter/mqtt"
-	"github.com/94peter/mqtt/config"
-	"github.com/94peter/mqtt/trans"
+	"github.com/muulinCorp/mqtt"
+	"github.com/muulinCorp/mqtt/config"
+	"github.com/muulinCorp/mqtt/trans"
 )
 
 const (

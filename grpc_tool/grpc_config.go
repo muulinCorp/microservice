@@ -1,8 +1,8 @@
 package grpc_tool
 
 import (
-	"github.com/94peter/microservice/cfg"
-	"github.com/94peter/microservice/grpc_tool/interceptor"
+	"github.com/muulinCorp/microservice/cfg"
+	"github.com/muulinCorp/microservice/grpc_tool/interceptor"
 
 	"google.golang.org/grpc"
 )

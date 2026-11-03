@@ -1,14 +1,14 @@
-module github.com/94peter/microservice
+module github.com/muulinCorp/microservice
 
 go 1.21.7
 
 require (
-	github.com/94peter/api-toolkit v1.2.1
-	github.com/94peter/log v1.0.5
-	github.com/94peter/mqtt v1.5.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/google/uuid v1.6.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
+	github.com/muulinCorp/api-toolkit v1.7.3
+	github.com/muulinCorp/log v1.0.7
+	github.com/muulinCorp/mqtt v1.5.1
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.4
 	google.golang.org/grpc v1.66.0

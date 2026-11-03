@@ -3,9 +3,9 @@ package cfg
 import (
 	"context"
 
-	"github.com/94peter/api-toolkit/mid"
-	"github.com/94peter/microservice/di"
-	"github.com/94peter/microservice/grpc_tool/interceptor"
+	"github.com/muulinCorp/api-toolkit/mid"
+	"github.com/muulinCorp/microservice/di"
+	"github.com/muulinCorp/microservice/grpc_tool/interceptor"
 	"github.com/gin-gonic/gin"
 )
 
